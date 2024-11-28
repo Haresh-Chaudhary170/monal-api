@@ -5,6 +5,7 @@ const { isAuthenticatedAdmin } = require("../middlewares/auth");
 
 router.route("/register").post(registerAdmin);
 router.route("/loginAdmin").post(loginAdmin);
+
 router.get("/admin/protected", isAuthenticatedAdmin, (req, res) => {
     res.status(200).json({ success: true, message: "Authorized" });
   });
