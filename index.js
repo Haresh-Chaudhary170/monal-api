@@ -11,7 +11,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 // Configure CORS
 app.use(cors({
-  origin: "https://monal-frontend-admin.vercel.app",
+  origin:"http://localhost:3000",
+  // origin: "https://monal-frontend-admin.vercel.app",
   credentials: true,       
 }));
 
@@ -28,10 +29,12 @@ const server = app.listen(process.env.PORT, () => {
 
 //importing routes
 const categories= require('./routes/category');
+const subcategories= require('./routes/subcategory');
 const items= require('./routes/item');
 const auth= require('./routes/auth');
 
 
 app.use('/api', categories);
+app.use('/api', subcategories);
 app.use('/api', items);
 app.use('/api', auth);

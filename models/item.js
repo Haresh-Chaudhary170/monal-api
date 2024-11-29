@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
+const subcategory = require("./subcategory");
 
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
-  category: {
+  subcategory: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    ref: "Subcategory",
     required: true,
   },
   inGlass:{
