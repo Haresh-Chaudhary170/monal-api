@@ -10,12 +10,17 @@ app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 // Configure CORS
-app.use(cors({
-  origin:"http://localhost:3000",
-  // origin: "https://monal-frontend-admin.vercel.app",
-  credentials: true,       
-}));
+const allowedOrigins = [
+  "http://localhost:3000", 
+  "https://monal-frontend-admin.vercel.app", 
+];
 
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, 
+  })
+);
 
 dotenv.config({ path: "./.env" });
 
