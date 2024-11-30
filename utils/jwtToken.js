@@ -16,3 +16,4 @@ const sendToken = async (admin, statusCode, res) => {
     token,
   });
 };
+  module.exports = sendToken;
