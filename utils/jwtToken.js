@@ -6,8 +6,8 @@ const sendToken = async (admin, statusCode, res) => {
       Date.now() + process.env.COOKIE_EXPIRE_TIME * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "PRODUCTION",
+    sameSite: process.env.NODE_ENV === "PRODUCTION" ? "none" : "lax",
   };
 
   res.status(statusCode).cookie("token", token, cookieOptions).json({
