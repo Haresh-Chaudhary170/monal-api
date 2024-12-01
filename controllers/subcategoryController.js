@@ -1,4 +1,5 @@
 const Subcategory = require("../models/subcategory");
+const ErrorHandler = require("../utils/errorHandler");
 
 exports.getSubcategories = async (req, res) => {
   try {
@@ -8,6 +9,31 @@ exports.getSubcategories = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getSubcategoriesByParentCategory = async (req, res, next) => {
+  try {
+    const { parentCategoryId } = req.params;
+
+    // Find all subcategories with the given parent category ID
+    const subcategories = await Subcategory.find({ parentCategory: parentCategoryId })
+      .populate("parentCategory", "name"); 
+
+    if (!subcategories || subcategories.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No subcategories found for this category",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      subcategories,
+    });
+  } catch (error) {
+    next(new ErrorHandler(error.message, 500));
+  }
+};
+
 
 exports.createSubcategory = async (req, res) => {
   try {

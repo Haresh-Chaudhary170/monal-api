@@ -1,5 +1,20 @@
 const Item = require('../models/item');
 
+exports.getItemsByCategory = async (req, res) => {
+  try {
+    const { subcategoryId } = req.params;
+    const items = await Item.find({ subcategory: subcategoryId }).populate("subcategory");
+
+    if (!items.length) {
+      return res.status(404).json({ success: false, message: "No items found for this subcategory." });
+    }
+
+    res.status(200).json({ success: true, items });
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
 exports.getItems = async (req, res) => {
   try {
     const items = await Item.find().populate('subcategory');
@@ -37,9 +52,7 @@ exports.updateItem = async (req, res) => {
     const { name, description, price, subcategory, inGlass } = req.body;
     const updatedItem = await Item.findByIdAndUpdate(
       req.params.id,
-      { name, description, price, subcategory },
-      { new: true }
-    );
+      { name, description, price, subcategory }    );
 
     if (!updatedItem) return res.status(404).json({ message: "Item not found" });
     res.status(200).json(updatedItem);
