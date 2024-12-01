@@ -37,9 +37,12 @@ const categories= require('./routes/category');
 const subcategories= require('./routes/subcategory');
 const items= require('./routes/item');
 const auth= require('./routes/auth');
+const user= require('./routes/user');
+
 
 
 app.use('/api', categories);
 app.use('/api', subcategories);
 app.use('/api', items);
 app.use('/api', auth);
+app.use('/api', user);
